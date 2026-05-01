@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Space Grotesk", sans-serif;
+
+  --color-cyber-bg: #050505;
+  --color-cyber-surface: #0a0a0a;
+  --color-cyber-accent: #f43f5e;
+  --color-cyber-cyan: #fb923c;
+  --color-cyber-alert: #ef4444;
+}
+
+@layer base {
+  body {
+    @apply bg-cyber-bg text-zinc-400 font-sans selection:bg-rose-500/30 selection:text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-black text-white tracking-tight;
+  }
+}
+
+@layer components {
+  .terminal-text {
+    @apply font-mono text-sm leading-relaxed;
+  }
+  
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 10;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(244, 63, 94, 0.03) 50%, rgba(0, 0, 0, 0) 100%);
+    opacity: 0.15;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 8s linear infinite;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 15px rgba(244, 63, 94, 0.6);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+  }
+
+  .bg-glass {
+    @apply bg-black/60 backdrop-blur-2xl border border-white/5;
+  }
+
+  .cyber-border {
+    border: 1px solid rgba(244, 63, 94, 0.15);
+    position: relative;
+  }
+
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid #f43f5e;
+    border-left: 2px solid #f43f5e;
+  }
+
+  .cyber-border::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 2px solid #f43f5e;
+    border-right: 2px solid #f43f5e;
+  }
+
+  .cyber-border-btn {
+    @apply relative border border-rose-500/50 overflow-hidden transition-all;
+  }
+
+  .cyber-border-btn::before {
+    content: '';
+    @apply absolute inset-0 bg-rose-600 -translate-x-full group-hover:translate-x-0 transition-transform duration-300 -z-10;
+  }
+
+  .cyber-border-btn:hover {
+    @apply text-white shadow-[0_0_30px_rgba(244,63,94,0.4)];
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(200vh); }
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch:hover::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch:hover::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); }
+  20% { clip: rect(62px, 9999px, 42px, 0); }
+  40% { clip: rect(16px, 9999px, 78px, 0); }
+  60% { clip: rect(51px, 9999px, 20px, 0); }
+  80% { clip: rect(91px, 9999px, 58px, 0); }
+  100% { clip: rect(43px, 9999px, 81px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); }
+  20% { clip: rect(30px, 9999px, 60px, 0); }
+  40% { clip: rect(10px, 9999px, 40px, 0); }
+  60% { clip: rect(80px, 9999px, 90px, 0); }
+  80% { clip: rect(50px, 9999px, 70px, 0); }
+  100% { clip: rect(20px, 9999px, 30px, 0); }
+}
